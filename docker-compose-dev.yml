@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:13.2
+    restart: unless-stopped
+    container_name: micare_chat_postgres
+    env_file:
+      - ./.env
+    ports:
+      - ${POSTGRES_PORT}:5432
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./postgresql.conf:/db_config/postgresql.conf

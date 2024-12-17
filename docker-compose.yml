@@ -1,0 +1,28 @@
+services:
+  postgres:
+    image: postgres:13.2
+    restart: unless-stopped
+    container_name: micare_chat_postgres
+    env_file:
+      - ./.env
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRESQL_PASS}
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+      - ./postgresql.conf:/db_config/postgresql.conf
+
+  micare_chat:
+    build: .
+    restart: unless-stopped
+    container_name: micare_chat
+    env_file:
+      - ./.env
+    environment:
+      - SKIP_ENV_VALIDATION=true
+      - NEXT_TELEMETRY_DISABLED=1
+    ports:
+      - "${MICARE_CHAT_OUTSIDEPORT}:3000"
+    depends_on:
+      - postgres
