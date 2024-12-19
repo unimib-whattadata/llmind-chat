@@ -1,6 +1,11 @@
-import { eq, or, and, asc } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 import { diagnosis, message } from "~/server/db/schema";
 import { z } from "zod";
+import {
+  getFinishedDiagnosis,
+  getInProgressDiagnosis,
+  getNewDiagnosis,
+} from "~/server/api/routers/block/queries";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
@@ -13,50 +18,11 @@ export const blockRouter = createTRPCRouter({
     )
     .query(async ({ ctx, input }) => {
       // get validated diagnosis
-      const validated = await ctx.db.query.diagnosis.findMany({
-        where: and(
-          eq(diagnosis.userId, input.userToken),
-          eq(diagnosis.currentOperation, "FINISHED"),
-        ),
-        with: {
-          blockMessages: {
-            orderBy: (blockMessages, { asc }) => [
-              asc(blockMessages.orderNumber),
-            ],
-          },
-        },
-      });
+      const validated = await getFinishedDiagnosis(ctx.db, input.userToken);
       // get in-progress diagnosis
-      const inProgress = await ctx.db.query.diagnosis.findFirst({
-        where: and(
-          eq(diagnosis.userId, input.userToken),
-          or(
-            eq(diagnosis.currentOperation, "NOTE"),
-            eq(diagnosis.currentOperation, "SCORE"),
-          ),
-        ),
-        with: {
-          blockMessages: {
-            orderBy: (blockMessages, { asc }) => [
-              asc(blockMessages.orderNumber),
-            ],
-          },
-        },
-      });
+      const inProgress = await getInProgressDiagnosis(ctx.db, input.userToken);
       if (inProgress == undefined) {
-        const newBlock = await ctx.db.query.diagnosis.findFirst({
-          where: and(
-            eq(diagnosis.userId, input.userToken),
-            eq(diagnosis.currentOperation, "VALIDATION"),
-          ),
-          with: {
-            blockMessages: {
-              orderBy: (blockMessages, { asc }) => [
-                asc(blockMessages.orderNumber),
-              ],
-            },
-          },
-        });
+        const newBlock = await getNewDiagnosis(ctx.db, input.userToken);
         return {
           validated: validated,
           current: newBlock,

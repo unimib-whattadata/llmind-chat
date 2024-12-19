@@ -33,7 +33,7 @@ export const seedDiagnosis = async (userId: number) => {
         diagnosisBlock: currentDiagnosis.insertedId,
         orderNumber: 1,
         hasValidation: false,
-        title: `Clinical Case ${index + 1}`,
+        title: `Clinical Case ${currentDiagnosis.insertedId}`,
       },
       {
         text: value.diagnosis,
@@ -43,7 +43,7 @@ export const seedDiagnosis = async (userId: number) => {
         diagnosisBlock: currentDiagnosis.insertedId,
         orderNumber: 2,
         hasValidation: true,
-        title: `Diagnosis ${index + 1}`,
+        title: `Diagnosis ${currentDiagnosis.insertedId}`,
       },
     ]);
   });
