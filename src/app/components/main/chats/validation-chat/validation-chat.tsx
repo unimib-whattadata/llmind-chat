@@ -129,10 +129,15 @@ export const ValidationChat = (props: ValidationChatType) => {
       </ChatMessageList>
       {blocks.isFetched && (
         <div>
+          {form.formState.errors.message && (
+            <p className="mx-4 text-xs text-red-400">
+              {form.formState.errors.message?.message}
+            </p>
+          )}
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="mt- relative m-4 flex flex-1 overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
+              className="mt- relative m-4 mt-1 flex flex-1 overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
               x-chunk="dashboard-03-chunk-1"
             >
               <FormField
@@ -142,19 +147,20 @@ export const ValidationChat = (props: ValidationChatType) => {
                 }
                 control={form.control}
                 name="message"
-                render={({ field }) => (
-                  <FormItem className="w-full">
-                    <FormControl>
-                      <Textarea
-                        id="message"
-                        placeholder="Type your message here..."
-                        className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  return (
+                    <FormItem className="w-full">
+                      <FormControl>
+                        <Textarea
+                          id="message"
+                          placeholder="Type your message here..."
+                          className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
+                          {...field}
+                        />
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
               />
               <Button
                 disabled={
