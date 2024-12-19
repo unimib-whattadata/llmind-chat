@@ -42,6 +42,7 @@ export function ChatList(props: ChatListProps) {
                 className="flex flex-col gap-2 p-4 last:mb-4"
               >
                 <Message
+                  index={index}
                   blockId={0}
                   onClickValidation={() => {
                     console.log("message on click");
