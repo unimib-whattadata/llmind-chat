@@ -10,7 +10,7 @@ import {
   useSidebar,
 } from "~/app/components/ui/sidebar";
 export function NavValidator() {
-  const { validation, setValidation } = useSidebar();
+  const { mainContent, setMainContent } = useSidebar();
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Validation</SidebarGroupLabel>
@@ -18,8 +18,15 @@ export function NavValidator() {
         <SidebarMenuItem>
           <SidebarMenuButton asChild>
             <button
-              className={cn(validation ? "bg-forest-green-100" : "")}
-              onClick={() => setValidation(true)}
+              className={cn(
+                mainContent.validation ? "bg-forest-green-100" : "",
+              )}
+              onClick={() =>
+                setMainContent({
+                  chatId: 0,
+                  validation: true,
+                })
+              }
             >
               <CircleCheckBig size={24} />
               <span className="text-xs">Validator</span>

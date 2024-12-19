@@ -8,9 +8,10 @@ import { Textarea } from "~/app/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api } from "~/trpc/react";
 import Loader from "~/app/components/ui/loader";
-import { ChatError } from "~/app/components/main/chat/chatError";
-import { ValidationBlock } from "~/app/components/main/chat/validation-chat/validation-block";
-import { ChatMessageList } from "~/app/components/main/chat/chat-message-list";
+import { ChatError } from "~/app/components/main/chats/chatError";
+import { ValidationBlock } from "~/app/components/main/chats/validation-chat/validation-block";
+import { ChatMessageList } from "~/app/components/main/chats/chat-message-list";
+import { useSidebar } from "~/app/components/ui/sidebar";
 import {
   Form,
   FormControl,
@@ -25,12 +26,15 @@ type ValidationChatType = React.HTMLAttributes<HTMLDivElement> & {
 
 export const ValidationChat = (props: ValidationChatType) => {
   const { title } = props;
+  const { auth } = useSidebar();
   const utils = api.useUtils();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const updateBlock = api.validationBlock.updateBlock.useMutation({
-    onSuccess: () => utils.validationBlock.getBlocks.invalidate(),
+    onSuccess: async () => await utils.validationBlock.getBlocks.invalidate(),
   });
-  const blocks = api.validationBlock.getBlocks.useQuery();
+  const blocks = api.validationBlock.getBlocks.useQuery({
+    userToken: auth.userId,
+  });
 
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -54,6 +58,7 @@ export const ValidationChat = (props: ValidationChatType) => {
   function onSubmit(data: z.infer<typeof formSchema>) {
     form.reset({ message: "" });
     updateBlock.mutate({
+      userToken: auth.userId,
       blockId: blocks.data?.current?.id ?? 0,
       messageId: 0,
       currentblockOperation:
@@ -64,8 +69,8 @@ export const ValidationChat = (props: ValidationChatType) => {
 
   if (blocks.isLoading) {
     return (
-      <div className="bg-gray-10 relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden">
-        <h1 className="text-forest-green-700 overflow-hidden p-4 align-top font-bold">
+      <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
+        <h1 className="overflow-hidden p-4 align-top font-bold text-forest-green-700">
           {title}
         </h1>
         <Loader className="h-full w-full bg-transparent" />
@@ -75,8 +80,8 @@ export const ValidationChat = (props: ValidationChatType) => {
 
   if (blocks.isError) {
     return (
-      <div className="bg-gray-10 relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden">
-        <h1 className="text-forest-green-700 overflow-hidden p-4 align-top font-bold">
+      <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
+        <h1 className="overflow-hidden p-4 align-top font-bold text-forest-green-700">
           {title}
         </h1>
         <ChatError />
@@ -90,6 +95,7 @@ export const ValidationChat = (props: ValidationChatType) => {
     textValidation: "Yes" | "No",
   ) => {
     updateBlock.mutate({
+      userToken: auth.userId,
       blockId: blockId,
       messageId: messageId,
       currentblockOperation: "VALIDATION",
@@ -98,8 +104,8 @@ export const ValidationChat = (props: ValidationChatType) => {
   };
 
   return (
-    <div className="bg-gray-10 relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden">
-      <h1 className="text-forest-green-700 overflow-hidden p-4 align-top font-bold">
+    <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
+      <h1 className="overflow-hidden p-4 align-top font-bold text-forest-green-700">
         {title}
       </h1>
       <ChatMessageList ref={messagesEndRef}>
@@ -157,7 +163,7 @@ export const ValidationChat = (props: ValidationChatType) => {
                 }
                 type="submit"
                 size="sm"
-                className="text-gray-40 hover:bg-forest-green-100 focus:bg-forest-green-100 ml-auto mr-3 gap-1.5 self-center bg-transparent"
+                className="ml-auto mr-3 gap-1.5 self-center bg-transparent text-gray-40 hover:bg-forest-green-100 focus:bg-forest-green-100"
               >
                 <Send size={24} />
               </Button>

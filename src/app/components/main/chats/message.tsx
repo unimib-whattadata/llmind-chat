@@ -3,9 +3,10 @@ import { cn } from "~/lib/utils";
 import {
   ChatBubbleMessage,
   ChatBubble,
-} from "~/app/components/main/chat/chat-bubble";
-import { MessageValidation } from "~/app/components/main/chat/validation-chat/message-validation";
-import { type MessageType } from "~/app/components/main/chat/types";
+} from "~/app/components/main/chats/chat-bubble";
+import { MessageValidation } from "~/app/components/main/chats/validation-chat/message-validation";
+import { type MessageType } from "~/app/components/main/chats/types";
+import Markdown from "react-markdown";
 
 export type MessageProps = {
   blockId: number;
@@ -29,14 +30,14 @@ export const Message = (messageProps: MessageProps) => {
         {message.title && (
           <h1
             className={cn(
-              "text-forest-green-800 mb-2 text-sm font-bold",
+              "mb-2 text-sm font-bold text-forest-green-800",
               message.messageType == "CLINICAL" ? "bg-gray-60" : "",
             )}
           >
             {message.title}
           </h1>
         )}
-        <p className="text-xs">{message.text}</p>
+        <Markdown className="text-xs">{message.text}</Markdown>
       </ChatBubbleMessage>
       {message.hasValidation && (
         <MessageValidation

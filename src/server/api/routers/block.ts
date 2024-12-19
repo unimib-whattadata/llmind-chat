@@ -1,35 +1,23 @@
-import { eq, or } from "drizzle-orm";
+import { eq, or, and, asc } from "drizzle-orm";
 import { diagnosis, message } from "~/server/db/schema";
 import { z } from "zod";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
 export const blockRouter = createTRPCRouter({
-  getBlocks: publicProcedure.query(async ({ ctx }) => {
-    // get validated diagnosis
-    const validated = await ctx.db.query.diagnosis.findMany({
-      where: eq(diagnosis.currentOperation, "FINISHED"),
-      with: {
-        blockMessages: {
-          orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
-        },
-      },
-    });
-    // get in-progress diagnosis
-    const inProgress = await ctx.db.query.diagnosis.findFirst({
-      where: or(
-        eq(diagnosis.currentOperation, "NOTE"),
-        eq(diagnosis.currentOperation, "SCORE"),
-      ),
-      with: {
-        blockMessages: {
-          orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
-        },
-      },
-    });
-    if (inProgress == undefined) {
-      const newBlock = await ctx.db.query.diagnosis.findFirst({
-        where: eq(diagnosis.currentOperation, "VALIDATION"),
+  getBlocks: publicProcedure
+    .input(
+      z.object({
+        userToken: z.number(),
+      }),
+    )
+    .query(async ({ ctx, input }) => {
+      // get validated diagnosis
+      const validated = await ctx.db.query.diagnosis.findMany({
+        where: and(
+          eq(diagnosis.userId, input.userToken),
+          eq(diagnosis.currentOperation, "FINISHED"),
+        ),
         with: {
           blockMessages: {
             orderBy: (blockMessages, { asc }) => [
@@ -38,19 +26,51 @@ export const blockRouter = createTRPCRouter({
           },
         },
       });
+      // get in-progress diagnosis
+      const inProgress = await ctx.db.query.diagnosis.findFirst({
+        where: and(
+          eq(diagnosis.userId, input.userToken),
+          or(
+            eq(diagnosis.currentOperation, "NOTE"),
+            eq(diagnosis.currentOperation, "SCORE"),
+          ),
+        ),
+        with: {
+          blockMessages: {
+            orderBy: (blockMessages, { asc }) => [
+              asc(blockMessages.orderNumber),
+            ],
+          },
+        },
+      });
+      if (inProgress == undefined) {
+        const newBlock = await ctx.db.query.diagnosis.findFirst({
+          where: and(
+            eq(diagnosis.userId, input.userToken),
+            eq(diagnosis.currentOperation, "VALIDATION"),
+          ),
+          with: {
+            blockMessages: {
+              orderBy: (blockMessages, { asc }) => [
+                asc(blockMessages.orderNumber),
+              ],
+            },
+          },
+        });
+        return {
+          validated: validated,
+          current: newBlock,
+        };
+      }
       return {
         validated: validated,
-        current: newBlock,
+        current: inProgress,
       };
-    }
-    return {
-      validated: validated,
-      current: inProgress,
-    };
-  }),
+    }),
   updateBlock: publicProcedure
     .input(
       z.object({
+        userToken: z.number(),
         blockId: z.number(),
         messageId: z.number(),
         currentblockOperation: z.enum([
@@ -70,7 +90,12 @@ export const blockRouter = createTRPCRouter({
           await ctx.db
             .update(diagnosis)
             .set({ currentOperation: "SCORE", validation: validationResponse })
-            .where(eq(diagnosis.id, input.blockId));
+            .where(
+              and(
+                eq(diagnosis.userId, input.userToken),
+                eq(diagnosis.id, input.blockId),
+              ),
+            );
           await ctx.db
             .update(message)
             .set({ hasValidation: false })
@@ -101,7 +126,12 @@ export const blockRouter = createTRPCRouter({
           await ctx.db
             .update(diagnosis)
             .set({ currentOperation: "FINISHED", score: input.response })
-            .where(eq(diagnosis.id, input.blockId));
+            .where(
+              and(
+                eq(diagnosis.userId, input.userToken),
+                eq(diagnosis.id, input.blockId),
+              ),
+            );
           await ctx.db.insert(message).values({
             hasValidation: false,
             messageType: "DEFAULT",
@@ -117,7 +147,12 @@ export const blockRouter = createTRPCRouter({
           await ctx.db
             .update(diagnosis)
             .set({ currentOperation: "NOTE", score: input.response })
-            .where(eq(diagnosis.id, input.blockId));
+            .where(
+              and(
+                eq(diagnosis.userId, input.userToken),
+                eq(diagnosis.id, input.blockId),
+              ),
+            );
           await ctx.db.insert(message).values([
             {
               hasValidation: false,

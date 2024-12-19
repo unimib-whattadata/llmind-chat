@@ -7,19 +7,20 @@ import {
   SidebarContent,
   SidebarFooter,
 } from "~/app/components/ui/sidebar";
+import { useSidebar } from "~/app/components/ui/sidebar";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  // const { open } = useSidebar();
+  const { open } = useSidebar();
   return (
     <Sidebar collapsible="icon" {...props}>
-      {/* {open && (
+      {/*{open && (
         <SidebarHeader>
           <MicareSidebarHeader />
         </SidebarHeader>
-      )}*/}
-      {/* <SidebarContent>
-        <NavProjects chats={data.chats} />
-      </SidebarContent> */}
+      )}
+      <SidebarContent>
+        <NavProjects />
+      </SidebarContent>*/}
       <SidebarContent className="mb-auto">
         <NavValidator />
       </SidebarContent>

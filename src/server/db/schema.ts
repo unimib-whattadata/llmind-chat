@@ -37,10 +37,6 @@ export const currentOperationEnum = pgEnum("currentOperation", [
 ]);
 
 export const validationEnum = pgEnum("validation", ["CORRECT", "INCORRECT"]);
-export const chat = createTable("chat", {
-  id: serial("id").primaryKey().notNull(),
-  chatName: varchar("chatName", { length: 256 }).notNull(),
-});
 
 export const diagnosis = createTable("diagnosis", {
   id: serial("id").primaryKey().notNull(),
@@ -50,6 +46,20 @@ export const diagnosis = createTable("diagnosis", {
   validation: validationEnum("validation"),
   score: varchar("score"),
   note: varchar("note"),
+  userId: integer("userId")
+    .references(() => user.id)
+    .notNull(), // Foreign key
+});
+
+export const user = createTable("user", {
+  id: serial("id").primaryKey().notNull(),
+  email: varchar("email").unique().notNull(),
+});
+
+export const chat = createTable("chat", {
+  id: serial("id").primaryKey().notNull(),
+  chatName: varchar("chatName", { length: 256 }).notNull(),
+  userId: integer("userId").references(() => user.id), // Foreign key
 });
 
 export const message = createTable("message", {
@@ -66,12 +76,25 @@ export const message = createTable("message", {
 });
 
 // Relations
-export const chatsRelations = relations(chat, ({ many }) => ({
+export const chatsRelations = relations(chat, ({ many, one }) => ({
   messages: many(message),
+  user: one(user, {
+    fields: [chat.userId],
+    references: [user.id],
+  }),
 }));
 
-export const diagnosisRelations = relations(diagnosis, ({ many }) => ({
+export const diagnosisRelations = relations(diagnosis, ({ many, one }) => ({
   blockMessages: many(message),
+  userId: one(user, {
+    fields: [diagnosis.userId],
+    references: [user.id],
+  }),
+}));
+
+export const userRelations = relations(user, ({ many }) => ({
+  chats: many(chat),
+  diagnosis: many(diagnosis),
 }));
 
 export const messagesRelations = relations(message, ({ one }) => ({

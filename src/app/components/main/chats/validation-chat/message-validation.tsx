@@ -1,6 +1,6 @@
 import { ThumbsUp, ThumbsDown } from "lucide-react";
 import { cn } from "~/lib/utils";
-import { ValidationButton } from "~/app/components/main/chat/validation-chat/validation-button";
+import { ValidationButton } from "~/app/components/main/chats/validation-chat/validation-button";
 
 type MessageValidationType = React.HTMLAttributes<HTMLDivElement> & {
   messageId: number;

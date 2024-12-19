@@ -1,10 +1,10 @@
 "use client";
 import React from "react";
 import { cn } from "~/lib/utils";
-import Message from "~/app/components/main/chat/message";
+import Message from "~/app/components/main/chats/message";
 import { AnimatePresence, motion } from "framer-motion";
-import { ChatMessageList } from "~/app/components/main/chat/chat-message-list";
-import { type MessageType } from "~/app/components/main/chat/types";
+import { ChatMessageList } from "~/app/components/main/chats/chat-message-list";
+import { type MessageType } from "~/app/components/main/chats/types";
 
 export type ChatListProps = React.HTMLAttributes<HTMLDivElement> & {
   messages: MessageType[];

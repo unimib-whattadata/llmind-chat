@@ -1,6 +1,6 @@
 import { AnimatePresence, motion } from "framer-motion";
-import Message from "~/app/components/main/chat/message";
-import { type Block } from "~/app/components/main/chat/types";
+import Message from "~/app/components/main/chats/message";
+import { type Block } from "~/app/components/main/chats/types";
 import { Separator } from "~/app/components/ui/separator";
 
 export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
@@ -66,7 +66,7 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
       })}
       {showSeparator && (
         <Separator
-          className="bg-gray-20 w-3/4 self-center"
+          className="w-3/4 self-center bg-gray-20"
           orientation="horizontal"
         />
       )}
