@@ -4,6 +4,7 @@ import { type Block } from "~/app/components/main/chats/types";
 import { Separator } from "~/app/components/ui/separator";
 
 export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
+  indexBlock: number;
   block: Block;
   showSeparator: boolean;
   isLoading?: boolean;
@@ -15,7 +16,8 @@ export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
 };
 
 export const ValidationBlock = (props: ValidationBlockProps) => {
-  const { block, showSeparator, isLoading, onClickValidation } = props;
+  const { block, indexBlock, showSeparator, isLoading, onClickValidation } =
+    props;
   return (
     <AnimatePresence>
       {block.blockMessages.map((message, index) => {
@@ -38,12 +40,14 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
             className="flex flex-col gap-2 p-4 last:mb-4"
           >
             <Message
+              index={indexBlock}
               blockId={block.id}
               message={message}
               onClickValidation={onClickValidation}
             />
             {isLoading && index == block.blockMessages.length - 1 && (
               <Message
+                index={0}
                 blockId={block.id}
                 isLoading={true}
                 message={{

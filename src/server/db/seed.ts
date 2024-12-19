@@ -12,7 +12,7 @@ export const seedDiagnosis = async (userId: number) => {
     connectionString: `postgresql://postgres:${env.POSTGRESQL_PASS}@${env.POSTGRES_HOST}:${env.POSTGRES_PORT}/${env.POSTGRES_DB}`,
   });
   const db = drizzle(client);
-  diagnosisJSON.map(async (value, index) => {
+  diagnosisJSON.map(async (value) => {
     const diagnosisId = await db
       .insert(diagnosis)
       .values({
@@ -33,7 +33,7 @@ export const seedDiagnosis = async (userId: number) => {
         diagnosisBlock: currentDiagnosis.insertedId,
         orderNumber: 1,
         hasValidation: false,
-        title: `Clinical Case ${currentDiagnosis.insertedId}`,
+        title: `Clinical Case`,
       },
       {
         text: value.diagnosis,
@@ -43,7 +43,7 @@ export const seedDiagnosis = async (userId: number) => {
         diagnosisBlock: currentDiagnosis.insertedId,
         orderNumber: 2,
         hasValidation: true,
-        title: `Diagnosis ${currentDiagnosis.insertedId}`,
+        title: `Diagnosis`,
       },
     ]);
   });

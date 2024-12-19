@@ -7,8 +7,10 @@ import {
 import { MessageValidation } from "~/app/components/main/chats/validation-chat/message-validation";
 import { type MessageType } from "~/app/components/main/chats/types";
 import Markdown from "react-markdown";
+import { index } from "drizzle-orm/mysql-core";
 
 export type MessageProps = {
+  index: number;
   blockId: number;
   message: MessageType;
   onClickValidation: (
@@ -20,7 +22,8 @@ export type MessageProps = {
 };
 
 export const Message = (messageProps: MessageProps) => {
-  const { blockId, onClickValidation, message, isLoading } = messageProps;
+  const { blockId, index, onClickValidation, message, isLoading } =
+    messageProps;
   return (
     <ChatBubble
       className="flex-col"
@@ -34,7 +37,7 @@ export const Message = (messageProps: MessageProps) => {
               message.messageType == "CLINICAL" ? "bg-gray-60" : "",
             )}
           >
-            {message.title}
+            {message.title} {index}
           </h1>
         )}
         <Markdown className="text-xs">{message.text}</Markdown>

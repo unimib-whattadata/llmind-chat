@@ -7,7 +7,6 @@ export const getFinishedDiagnosis = async (
   userToken: number,
 ) => {
   return await db.query.diagnosis.findMany({
-    orderBy: [asc(diagnosis.id)],
     where: and(
       eq(diagnosis.userId, userToken),
       eq(diagnosis.currentOperation, "FINISHED"),
@@ -45,7 +44,6 @@ export const getNewDiagnosis = async (
   userToken: number,
 ) => {
   const newDiagnosis = await db.query.diagnosis.findMany({
-    orderBy: [asc(diagnosis.id)],
     where: and(
       eq(diagnosis.userId, userToken),
       eq(diagnosis.currentOperation, "VALIDATION"),
