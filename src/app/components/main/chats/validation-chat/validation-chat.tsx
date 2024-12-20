@@ -17,7 +17,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormMessage,
 } from "~/app/components/ui/form";
 
 type ValidationChatType = React.HTMLAttributes<HTMLDivElement> & {
@@ -103,6 +102,16 @@ export const ValidationChat = (props: ValidationChatType) => {
     });
   };
 
+  const onClickSkip = (blockId: number, messageId: number) => {
+    updateBlock.mutate({
+      userToken: auth.userId,
+      blockId: blockId,
+      messageId: messageId,
+      currentblockOperation: "NOTE",
+      response: "Skip",
+    });
+  };
+
   return (
     <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
       <h1 className="overflow-hidden p-4 align-top font-bold text-forest-green-700">
@@ -116,6 +125,7 @@ export const ValidationChat = (props: ValidationChatType) => {
             key={index}
             block={block}
             onClickValidation={onClickValidation}
+            onClickSkip={onClickSkip}
           />
         ))}
         {blocks.data?.current && (
@@ -125,6 +135,7 @@ export const ValidationChat = (props: ValidationChatType) => {
             showSeparator={false}
             block={blocks.data.current}
             onClickValidation={onClickValidation}
+            onClickSkip={onClickSkip}
           />
         )}
         <div ref={messagesEndRef}></div>

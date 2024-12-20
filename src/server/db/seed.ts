@@ -34,6 +34,7 @@ export const seedDiagnosis = async (userId: number) => {
         orderNumber: 1,
         hasValidation: false,
         title: `Clinical Case`,
+        hasSkip: false,
       },
       {
         text: value.diagnosis,
@@ -44,6 +45,7 @@ export const seedDiagnosis = async (userId: number) => {
         orderNumber: 2,
         hasValidation: true,
         title: `Diagnosis`,
+        hasSkip: false,
       },
     ]);
   });

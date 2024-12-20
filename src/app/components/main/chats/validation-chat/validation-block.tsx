@@ -13,11 +13,18 @@ export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
     messageId: number,
     textValidation: "Yes" | "No",
   ) => void;
+  onClickSkip: (blockId: number, messageId: number) => void;
 };
 
 export const ValidationBlock = (props: ValidationBlockProps) => {
-  const { block, indexBlock, showSeparator, isLoading, onClickValidation } =
-    props;
+  const {
+    block,
+    indexBlock,
+    showSeparator,
+    isLoading,
+    onClickValidation,
+    onClickSkip,
+  } = props;
   return (
     <AnimatePresence>
       {block.blockMessages.map((message, index) => {
@@ -44,6 +51,7 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
               blockId={block.id}
               message={message}
               onClickValidation={onClickValidation}
+              onClickSkip={onClickSkip}
             />
             {isLoading && index == block.blockMessages.length - 1 && (
               <Message
@@ -59,10 +67,12 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
                   role: "AI",
                   hasValidation: false,
                   chatId: 0,
+                  hasSkip: false,
                   diagnosisBlock: 0,
                   orderNumber: 0,
                 }}
                 onClickValidation={onClickValidation}
+                onClickSkip={onClickSkip}
               />
             )}
           </motion.div>

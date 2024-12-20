@@ -12,6 +12,7 @@ export type MessageType = {
   timestamp: Date;
   role: "USER" | "AI";
   hasValidation: boolean;
+  hasSkip: boolean;
   orderNumber: number | null;
   chatId: number | null;
   diagnosisBlock: number | null;

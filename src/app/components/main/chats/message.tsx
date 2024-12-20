@@ -7,7 +7,7 @@ import {
 import { MessageValidation } from "~/app/components/main/chats/validation-chat/message-validation";
 import { type MessageType } from "~/app/components/main/chats/types";
 import Markdown from "react-markdown";
-import { index } from "drizzle-orm/mysql-core";
+import { SkipMessage } from "~/app/components/main/chats/validation-chat/skip-message";
 
 export type MessageProps = {
   index: number;
@@ -18,11 +18,12 @@ export type MessageProps = {
     messageId: number,
     textValidation: "Yes" | "No",
   ) => void;
+  onClickSkip: (blockId: number, messageId: number) => void;
   isLoading?: boolean;
 };
 
 export const Message = (messageProps: MessageProps) => {
-  const { blockId, index, onClickValidation, message, isLoading } =
+  const { blockId, index, onClickValidation, onClickSkip, message, isLoading } =
     messageProps;
   return (
     <ChatBubble
@@ -47,6 +48,14 @@ export const Message = (messageProps: MessageProps) => {
           messageId={message.id}
           blockId={blockId}
           onClickValidation={onClickValidation}
+          className="self-start"
+        />
+      )}
+      {message.hasSkip && (
+        <SkipMessage
+          messageId={message.id}
+          blockId={blockId}
+          onClickSkip={onClickSkip}
           className="self-start"
         />
       )}

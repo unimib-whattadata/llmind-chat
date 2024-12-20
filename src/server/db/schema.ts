@@ -68,6 +68,7 @@ export const message = createTable("message", {
   timestamp: timestamp("timestamp").notNull(),
   role: messageRoleEnum("role").notNull(),
   hasValidation: boolean("hasValidation").notNull(),
+  hasSkip: boolean("hasSkip").notNull(),
   messageType: messageTypeEnum("messageType").notNull(),
   title: varchar("title"),
   orderNumber: integer("orderNumber"),

@@ -75,6 +75,7 @@ export const blockRouter = createTRPCRouter({
               timestamp: new Date(),
               orderNumber: 3,
               diagnosisBlock: input.blockId,
+              hasSkip: false,
             },
             {
               hasValidation: false,
@@ -84,6 +85,7 @@ export const blockRouter = createTRPCRouter({
               timestamp: new Date(),
               orderNumber: 4,
               diagnosisBlock: input.blockId,
+              hasSkip: false,
             },
           ]);
           break;
@@ -98,15 +100,22 @@ export const blockRouter = createTRPCRouter({
                 eq(diagnosis.id, input.blockId),
               ),
             );
-          await ctx.db.insert(message).values({
-            hasValidation: false,
-            messageType: "DEFAULT",
-            role: "USER",
-            text: input.response,
-            timestamp: new Date(),
-            orderNumber: 7,
-            diagnosisBlock: input.blockId,
-          });
+          if (input.response != "Skip") {
+            await ctx.db.insert(message).values({
+              hasValidation: false,
+              messageType: "DEFAULT",
+              role: "USER",
+              text: input.response,
+              timestamp: new Date(),
+              orderNumber: 7,
+              diagnosisBlock: input.blockId,
+              hasSkip: false,
+            });
+          }
+          await ctx.db
+            .update(message)
+            .set({ hasSkip: false, hasValidation: false })
+            .where(and(eq(message.diagnosisBlock, input.blockId)));
           break;
         }
         case "SCORE": {
@@ -128,6 +137,7 @@ export const blockRouter = createTRPCRouter({
               timestamp: new Date(),
               orderNumber: 5,
               diagnosisBlock: input.blockId,
+              hasSkip: false,
             },
             {
               hasValidation: false,
@@ -137,11 +147,12 @@ export const blockRouter = createTRPCRouter({
               timestamp: new Date(),
               orderNumber: 6,
               diagnosisBlock: input.blockId,
+              hasSkip: true,
             },
           ]);
           break;
         }
-        case "FINISHED": {
+        default: {
           break;
         }
       }
