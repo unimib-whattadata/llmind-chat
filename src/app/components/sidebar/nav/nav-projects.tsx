@@ -42,7 +42,11 @@ export function NavProjects() {
     <SidebarGroup className="max-h-[200px] overflow-hidden group-data-[collapsible=icon]:hidden">
       <SidebarGroupLabel>Chats</SidebarGroupLabel>
       <SidebarMenu className="no-scrollbar overflow-y-auto">
+        {chats.data && chats.data.length == 0 && (
+          <p className="text-center text-xs text-gray-30">No Chats</p>
+        )}
         {chats.data &&
+          chats.data.length > 0 &&
           chats.data.map((chat) => (
             <SidebarMenuItem key={chat.id}>
               <SidebarMenuButton asChild>

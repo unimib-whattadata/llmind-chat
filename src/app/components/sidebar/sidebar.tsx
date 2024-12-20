@@ -6,21 +6,24 @@ import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarHeader,
 } from "~/app/components/ui/sidebar";
+import { NavProjects } from "~/app/components/sidebar/nav/nav-projects";
+import { MicareSidebarHeader } from "~/app/components/sidebar/sidebar-header";
 import { useSidebar } from "~/app/components/ui/sidebar";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { open } = useSidebar();
   return (
     <Sidebar collapsible="icon" {...props}>
-      {/*{open && (
+      {open && (
         <SidebarHeader>
           <MicareSidebarHeader />
         </SidebarHeader>
       )}
       <SidebarContent>
         <NavProjects />
-      </SidebarContent>*/}
+      </SidebarContent>
       <SidebarContent className="mb-auto">
         <NavValidator />
       </SidebarContent>

@@ -5,14 +5,17 @@ import Message from "~/app/components/main/chats/message";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChatMessageList } from "~/app/components/main/chats/chat-message-list";
 import { type MessageType } from "~/app/components/main/chats/types";
+import { type RefObject } from "react";
 
 export type ChatListProps = React.HTMLAttributes<HTMLDivElement> & {
   messages: MessageType[];
   isLoading: boolean;
+  ref: RefObject<HTMLDivElement>;
+  tmpMessageUser: string;
 };
 
 export function ChatList(props: ChatListProps) {
-  const { messages, isLoading, className } = props;
+  const { messages, ref, tmpMessageUser, isLoading, className } = props;
   return (
     <div
       className={cn(
@@ -20,7 +23,10 @@ export function ChatList(props: ChatListProps) {
         className,
       )}
     >
-      <ChatMessageList>
+      {messages.length == 0 && (
+        <p className="self-center text-base text-gray-20">Empty Chat</p>
+      )}
+      <ChatMessageList ref={ref}>
         <AnimatePresence>
           {messages.map((message, index) => {
             return (
@@ -44,16 +50,58 @@ export function ChatList(props: ChatListProps) {
                 <Message
                   index={index}
                   blockId={0}
-                  onClickValidation={() => {
-                    console.log("message on click");
-                  }}
+                  onClickValidation={() => {}}
+                  onClickSkip={() => {}}
                   message={message}
-                  isLoading={isLoading ?? false}
                 />
+                {isLoading && index == messages.length - 1 && (
+                  <Message
+                    index={index}
+                    blockId={0}
+                    onClickValidation={() => {}}
+                    onClickSkip={() => {}}
+                    message={{
+                      messageType: "DEFAULT",
+                      title: "",
+                      id: 0,
+                      text: tmpMessageUser,
+                      timestamp: new Date(),
+                      role: "USER",
+                      hasValidation: false,
+                      chatId: 0,
+                      hasSkip: false,
+                      diagnosisBlock: 0,
+                      orderNumber: 0,
+                    }}
+                  />
+                )}
+                {isLoading && index == messages.length - 1 && (
+                  <Message
+                    index={0}
+                    blockId={index}
+                    isLoading={true}
+                    message={{
+                      messageType: "DEFAULT",
+                      title: "",
+                      id: 0,
+                      text: "",
+                      timestamp: new Date(),
+                      role: "AI",
+                      hasValidation: false,
+                      chatId: 0,
+                      hasSkip: false,
+                      diagnosisBlock: 0,
+                      orderNumber: 0,
+                    }}
+                    onClickValidation={() => {}}
+                    onClickSkip={() => {}}
+                  />
+                )}
               </motion.div>
             );
           })}
         </AnimatePresence>
+        <div ref={ref}></div>
       </ChatMessageList>
     </div>
   );
