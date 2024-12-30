@@ -1,5 +1,5 @@
 import { PostgresJsDatabase } from "drizzle-orm/postgres-js";
-import { eq, and, or, asc } from "drizzle-orm";
+import { eq, and, or } from "drizzle-orm";
 import { diagnosis } from "~/server/db/schema";
 
 export const getFinishedDiagnosis = async (
@@ -56,4 +56,16 @@ export const getNewDiagnosis = async (
   });
   const firstNewDiagnosis = newDiagnosis[0];
   return firstNewDiagnosis;
+};
+
+export const updateValidationDiagnosis = async (
+  db: PostgresJsDatabase<typeof import("~/server/db/schema")>,
+  userToken: number,
+  blockId: number,
+  validationResponse: "CORRECT" | "INCORRECT",
+) => {
+  await db
+    .update(diagnosis)
+    .set({ currentOperation: "SCORE", validation: validationResponse })
+    .where(and(eq(diagnosis.userId, userToken), eq(diagnosis.id, blockId)));
 };

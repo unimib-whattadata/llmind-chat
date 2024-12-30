@@ -2,28 +2,20 @@
 import { useSidebar } from "~/app/components/ui/sidebar";
 import { ValidationChat } from "~/app/components/main/chats/validation-chat/validation-chat";
 import { cn } from "~/lib/utils";
-import { Chat } from "~/app/components/main/chats/chat/chat";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "~/app/components/ui/dialog";
+import { LLMChat } from "~/app/components/main/chats/llm-chat/llm-chat";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Input } from "~/app/components/ui/input";
-import { Button } from "~/app/components/ui/button";
-import { Form, FormField, FormItem } from "~/app/components/ui/form";
 import { api } from "~/trpc/react";
+import { Chat } from "~/app/components/main/chats/chat";
+import { AuthenticationDialog } from "~/app/components/main/authentication/authentication-dialog";
 
 type MainType = React.HTMLAttributes<HTMLDivElement> & {};
 
 export const Main = (props: MainType) => {
   const { className } = props;
   const { mainContent, auth, setAuth } = useSidebar();
-  console.log(auth);
+
   const authentication = api.users.authenticate.useMutation({
     onSuccess: (data) => {
       setAuth({
@@ -58,46 +50,25 @@ export const Main = (props: MainType) => {
       )}
     >
       {!auth.isAuth ? (
-        <Dialog open={!auth.isAuth}>
-          <DialogContent
-            onInteractOutside={(e) => {
-              e.preventDefault();
-            }}
-            className="sm:max-w-[425px]"
-          >
-            <DialogHeader>
-              <DialogTitle>Insert Your Email</DialogTitle>
-              <DialogDescription className="text-sm">
-                Your Email will be stored to validate your access.
-              </DialogDescription>
-            </DialogHeader>
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onSubmit)}
-                className="space-y-6"
-              >
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem className="w-full">
-                      <div className="flex w-full max-w-sm items-center space-x-2">
-                        <Input placeholder="Email" {...field} />
-                        <Button type="submit" className="bg-forest-green-700">
-                          Register
-                        </Button>
-                      </div>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-          </DialogContent>
-        </Dialog>
-      ) : mainContent.validation ? (
-        <ValidationChat title="Clinical Cases" />
+        <AuthenticationDialog
+          form={form}
+          onSubmit={form.handleSubmit(onSubmit)}
+          isOpen={!auth.isAuth}
+        />
       ) : (
-        <Chat chatId={mainContent.chatId} />
+        <Chat
+          title={
+            mainContent.validation
+              ? "Clinical Cases"
+              : `Chat ${mainContent.chatId}`
+          }
+        >
+          {mainContent.validation ? (
+            <ValidationChat />
+          ) : (
+            <LLMChat chatId={mainContent.chatId} />
+          )}
+        </Chat>
       )}
     </div>
   );

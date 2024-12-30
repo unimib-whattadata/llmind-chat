@@ -17,12 +17,7 @@ export type ChatListProps = React.HTMLAttributes<HTMLDivElement> & {
 export function ChatList(props: ChatListProps) {
   const { messages, ref, tmpMessageUser, isLoading, className } = props;
   return (
-    <div
-      className={cn(
-        "flex h-[calc(100vh-55px)] w-full flex-col overflow-y-auto",
-        className,
-      )}
-    >
+    <div className={cn("flex h-[calc(100vh-55px)] w-full flex-col", className)}>
       {messages.length == 0 && (
         <p className="self-center text-base text-gray-20">Empty Chat</p>
       )}

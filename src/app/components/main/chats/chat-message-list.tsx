@@ -6,7 +6,7 @@ type ChatMessageListProps = React.HTMLAttributes<HTMLDivElement> & {};
 const ChatMessageList = React.forwardRef<HTMLDivElement, ChatMessageListProps>(
   ({ className, children, ...props }, ref) => (
     <div
-      className={cn("flex h-full w-full flex-col overflow-y-auto", className)}
+      className={cn("flex h-full w-full flex-col", className)}
       ref={ref}
       {...props}
     >

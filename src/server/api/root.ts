@@ -1,6 +1,6 @@
 import { blockRouter } from "~/server/api/routers/block/block";
-import { chatRouter } from "~/server/api/routers/chats";
-import { userRouter } from "~/server/api/routers/users";
+import { chatRouter } from "~/server/api/routers/chats/chats";
+import { userRouter } from "~/server/api/routers/users/users";
 
 import { createCallerFactory, createTRPCRouter } from "~/server/api/trpc";
 

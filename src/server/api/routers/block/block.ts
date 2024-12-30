@@ -5,7 +5,8 @@ import {
   getFinishedDiagnosis,
   getInProgressDiagnosis,
   getNewDiagnosis,
-} from "~/server/api/routers/block/queries";
+  updateValidationDiagnosis,
+} from "~/server/api/routers/block/query";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
@@ -53,15 +54,12 @@ export const blockRouter = createTRPCRouter({
         case "VALIDATION": {
           const validationResponse =
             input.response == "Yes" ? "CORRECT" : "INCORRECT";
-          await ctx.db
-            .update(diagnosis)
-            .set({ currentOperation: "SCORE", validation: validationResponse })
-            .where(
-              and(
-                eq(diagnosis.userId, input.userToken),
-                eq(diagnosis.id, input.blockId),
-              ),
-            );
+          await updateValidationDiagnosis(
+            ctx.db,
+            input.userToken,
+            input.blockId,
+            validationResponse,
+          );
           await ctx.db
             .update(message)
             .set({ hasValidation: false })
