@@ -1,5 +1,12 @@
 # Starting Image
 FROM node:22-bullseye-slim
+ENV POSTGRESQL_PASS micare_chat2024!
+ENV POSTGRES_HOST localhost
+ENV POSTGRES_PORT 5432
+ENV POSTGRES_DB micare_chat
+ENV POSTGRES_USER postgres
+ENV MICARE_CHAT_OUTSIDEPORT 3001
+ENV LLM_API http://149.132.176.54:5000/askLLM
 # Set the working directory in the container
 WORKDIR /app
 # Copy the application package and lock

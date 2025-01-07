@@ -34,12 +34,6 @@ pipeline {
             }
         }
         stage('Package') {
-            agent{
-                docker {
-                    image 'docker:dind'
-                    args '--privileged'
-                }
-            }
             steps {
                 sh 'docker build -t fabio975/micare-chat .'
             }
