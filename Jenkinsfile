@@ -3,6 +3,11 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '4'))
     }
+    environment {
+        DOCKER_USER = credentials('DOCKER_USER')
+        DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
+        DOCKER_IMAGE_NAME = "fabio975/micare-chat"
+    }
     stages {
         stage('Install') {
             agent{
@@ -11,12 +16,26 @@ pipeline {
                 }
             }
             steps{
+                // install packages
                 sh 'pnpm install'
             }
         }
         stage('Package') {
             steps {
-                sh 'docker build -f Dockerfile.Jenkins -t fabio975/micare-chat .'
+                // docker login
+                sh "docker login -u='${DOCKER_USER}' -p='${DOCKER_PASSWORD}'"
+                // docker build
+                sh "docker build -f Dockerfile.Jenkins -t ${DOCKER_IMAGE_NAME} ."
+                // docker push
+                sh "docker push ${DOCKER_IMAGE_NAME}:latest"
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo Deploy'
+                // connect via ssh
+                // docker compose down
+                // docker compose up --build
             }
         }
     }

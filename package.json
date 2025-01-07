@@ -10,7 +10,6 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "tsx ./src/server/db/seed.ts",
     "prestart": "pnpm drizzle-kit generate && pnpm drizzle-kit migrate",
     "dev": "next dev --turbo",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,mdx}\" --cache",
