@@ -45,7 +45,6 @@ pipeline {
     }
     post {
         always {
-            sleep 5
             deleteDir()
         }
   }
