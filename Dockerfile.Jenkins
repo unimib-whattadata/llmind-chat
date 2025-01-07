@@ -1,7 +1,7 @@
 # Starting Image
 FROM node:22-bullseye-slim
 ENV POSTGRESQL_PASS micare_chat2024!
-ENV POSTGRES_HOST localhost
+ENV POSTGRES_HOST postgres
 ENV POSTGRES_PORT 5432
 ENV POSTGRES_DB micare_chat
 ENV POSTGRES_USER postgres
