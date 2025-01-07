@@ -12,6 +12,7 @@ pipeline {
         stage('Install') {
             steps{
                 sh 'echo Install'
+                sh 'touch file.txt'
                 sh 'ls'
             }
         }
