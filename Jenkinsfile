@@ -39,7 +39,7 @@ pipeline {
                     remote.host = env.MINIZEUS_IP
                     remote.password = env.MINIZEUS_PASSWORD
                 }
-                sshCommand(remote: remote, command: "docker compose down ../../data/LLMind-jenkins")
+                sshCommand(remote: remote, command: "cd ../../data/LLMind-jenkins && docker compose down")
             }
         }
     }
