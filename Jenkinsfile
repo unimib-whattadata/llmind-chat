@@ -1,9 +1,5 @@
 pipeline {
-    agent{
-        docker {
-            image 'fabio975/node-22-pnpm'
-        }
-    }
+    agent any
     options {
         // This is required if you want to clean before build
         skipDefaultCheckout(true)
