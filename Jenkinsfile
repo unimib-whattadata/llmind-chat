@@ -7,6 +7,9 @@ pipeline {
     options {
         buildDiscarder(logRotator(numToKeepStr: '4'))
     }
+    environment {
+        LLM_API = '...'
+    }
     stages {
         stage('Install') {
             steps{
