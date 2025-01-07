@@ -28,6 +28,9 @@ pipeline {
             }
         }
         stage('Package') {
+            environment {
+                LLM_API = '...'
+            }
             steps {
                 sh 'docker build -t fabio975/micare-chat .'
             }
