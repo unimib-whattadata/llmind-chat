@@ -1,9 +1,5 @@
 pipeline {
-    agent{
-        docker {
-            image 'fabio975/node-22-pnpm'
-        }
-    }
+    agent any
     options {
         buildDiscarder(logRotator(numToKeepStr: '4'))
     }
@@ -12,11 +8,21 @@ pipeline {
     }
     stages {
         stage('Install') {
+            agent{
+                docker {
+                    image 'fabio975/node-22-pnpm'
+                }
+            }
             steps{
                 sh 'pnpm install'
             }
         }
         stage('Build') {
+            agent{
+                docker {
+                    image 'fabio975/node-22-pnpm'
+                }
+            }
             steps{
                 sh 'pnpm build'
             }
