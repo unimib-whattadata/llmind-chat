@@ -39,6 +39,7 @@ pipeline {
                     remote.host = env.MINIZEUS_IP
                     remote.password = env.MINIZEUS_PASSWORD
                 }
+                sshCommand(remote: remote, command: "cd ../../data")
                 sshCommand(remote: remote, command: "ls")
             }
         }
