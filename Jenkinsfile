@@ -39,7 +39,9 @@ pipeline {
                     remote.host = env.MINIZEUS_IP
                     remote.password = env.MINIZEUS_PASSWORD
                 }
-                sshCommand(remote: remote, command: "cd ../../data & ls")
+                sshCommand(remote: remote, command: "cd ../../data/LLMind-jenkins")
+                sshCommand(remote: remote, command: "sleep 5")
+                sshCommand(remote: remote, command: 'ls')
             }
         }
     }
