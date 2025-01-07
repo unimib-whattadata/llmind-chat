@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Package') {
             steps {
-                app = docker.build("micare-chat")
+                sh 'docker build -t fabio975/micare-chat .'
             }
         }
     }
