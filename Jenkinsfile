@@ -13,6 +13,11 @@ pipeline {
                 sh 'pnpm install'
             }
         }
+        stage('Build') {
+            steps{
+                sh 'pnpm build'
+            }
+        }
     }
     post {
         always {
