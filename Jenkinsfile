@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent docker
     options {
         buildDiscarder(logRotator(numToKeepStr: '4'))
     }
@@ -28,11 +28,6 @@ pipeline {
             }
         }
         stage('Package') {
-            agent{
-                docker {
-                    image 'docker:dind'
-                }
-            }
             steps {
                 sh 'docker build -t fabio975/micare-chat .'
             }
