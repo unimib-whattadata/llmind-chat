@@ -10,9 +10,7 @@ pipeline {
     stages {
         stage('Install') {
             steps{
-                sh 'echo Install'
-                sh 'touch file.txt'
-                sh 'ls'
+                sh 'pnpm install'
             }
         }
     }
