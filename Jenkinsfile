@@ -14,15 +14,5 @@ pipeline {
                 sh 'pnpm install'
             }
         }
-        stage('Build') {
-            steps {
-                sh 'pnpm build'
-            }
-        }
-        stage('Package') {
-            steps {
-                echo 'Package....'
-            }
-        }
     }
 }
