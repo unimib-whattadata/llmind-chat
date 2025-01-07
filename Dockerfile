@@ -11,7 +11,7 @@ RUN pnpm install
 # Create build
 RUN pnpm build
 #Add .env
-COPY .env /app/.env
+#COPY .env /app/.env
 # Expose the app
 EXPOSE 3000
 # Start the application
