@@ -26,6 +26,9 @@ pipeline {
             }
         }
         stage('Package') {
+            when{
+                branch "main"
+            }
             steps {
                 sh "docker login -u='${DOCKER_USER}' -p='${DOCKER_PASSWORD}'"
                 sh "docker build -f Dockerfile.Jenkins -t ${DOCKER_IMAGE_NAME} ."
@@ -33,6 +36,9 @@ pipeline {
             }
         }
         stage('Deploy') {
+            when{
+                branch "main"
+            }
             steps {
                 script {
                     remote.name = env.MINIZEUS_IP
