@@ -66,7 +66,7 @@ export const Main = (props: MainType) => {
             className="sm:max-w-[425px]"
           >
             <DialogHeader>
-              <DialogTitle>Insert Your Email to register yourself</DialogTitle>
+              <DialogTitle>Insert Your Email</DialogTitle>
               <DialogDescription className="text-sm">
                 Your Email will be stored to validate your access.
               </DialogDescription>
