@@ -1,8 +1,11 @@
 pipeline {
-    agent any
+    agent{
+        docker {
+            image 'fabio975/node-22-pnpm'
+        }
+    }
     options {
-        // This is required if you want to clean before build
-        skipDefaultCheckout(true)
+        buildDiscarder(logRotator(numToKeepStr: '4'))
     }
     stages {
         stage('Install') {
@@ -13,4 +16,9 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            deleteDir()
+        }
+  }
 }
