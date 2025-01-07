@@ -1,3 +1,7 @@
+def remote = [:]
+remote.user = 'janus-inside'
+remote.allowAnyHosts = true
+
 pipeline {
     agent any
     options {
@@ -7,6 +11,8 @@ pipeline {
         DOCKER_USER = credentials('DOCKER_USER')
         DOCKER_PASSWORD = credentials('DOCKER_PASSWORD')
         DOCKER_IMAGE_NAME = "fabio975/micare-chat"
+        MINIZEUS_IP = credentials('MINIZEUS_IP')
+        MINIZEUS_PASSWORD = credentials('MINIZEUS_PASSWORD')
     }
     stages {
         stage('Install') {
@@ -16,31 +22,30 @@ pipeline {
                 }
             }
             steps{
-                // install packages
                 sh 'pnpm install'
             }
         }
         stage('Package') {
             steps {
-                // docker login
                 sh "docker login -u='${DOCKER_USER}' -p='${DOCKER_PASSWORD}'"
-                // docker build
                 sh "docker build -f Dockerfile.Jenkins -t ${DOCKER_IMAGE_NAME} ."
-                // docker push
                 sh "docker push ${DOCKER_IMAGE_NAME}:latest"
             }
         }
         stage('Deploy') {
             steps {
-                sh 'echo Deploy'
-                // connect via ssh
-                // docker compose down
-                // docker compose up --build
+                script {
+                    remote.name = env.MINIZEUS_IP
+                    remote.host = env.MINIZEUS_IP
+                    remote.password = env.MINIZEUS_PASSWORD
+                }
+                sshCommand(remote: remote, command: "ls")
             }
         }
     }
     post {
         always {
+            sleep 5
             deleteDir()
         }
   }
