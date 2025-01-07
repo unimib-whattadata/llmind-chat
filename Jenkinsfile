@@ -34,15 +34,6 @@ pipeline {
             }
         }
         stage('Package') {
-            environment {
-                POSTGRESQL_PASS="micare_chat2024!"
-                POSTGRES_HOST="localhost"
-                POSTGRES_PORT="5432"
-                POSTGRES_DB="micare_chat"
-                POSTGRES_USER="postgres"
-                MICARE_CHAT_OUTSIDEPORT="3001"
-                LLM_API = 'http://149.132.176.54:5000/askLLM'
-            }
             steps {
                 sh 'docker build -t fabio975/micare-chat .'
             }
