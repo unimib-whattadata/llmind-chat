@@ -4,6 +4,12 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr: '4'))
     }
     environment {
+        POSTGRESQL_PASS="..."
+        POSTGRES_HOST="..."
+        POSTGRES_PORT="..."
+        POSTGRES_DB="..."
+        POSTGRES_USER="..."
+        MICARE_CHAT_OUTSIDEPORT="..."
         LLM_API = '...'
     }
     stages {
