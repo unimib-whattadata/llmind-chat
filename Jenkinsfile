@@ -11,7 +11,8 @@ pipeline {
     stages {
         stage('Install') {
             steps{
-                sh 'pnpm install'
+                sh 'echo Install'
+                sh 'ls'
             }
         }
     }
