@@ -14,10 +14,12 @@ pipeline {
         stage('Install') {
             steps{
                 sh 'pnpm install'
+                sh 'touch file.txt'
             }
         }
         stage('Build') {
             steps{
+                sh 'ls'
                 sh 'pnpm build'
             }
         }
