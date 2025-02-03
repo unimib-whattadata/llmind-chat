@@ -48,6 +48,7 @@ export function ChatList(props: ChatListProps) {
                 className="flex flex-col gap-2 p-4 last:mb-4"
               >
                 <Message
+                  total={0}
                   index={index}
                   blockId={0}
                   onClickValidation={() => {}}
@@ -56,6 +57,7 @@ export function ChatList(props: ChatListProps) {
                 />
                 {isLoading && index == messages.length - 1 && (
                   <Message
+                    total={0}
                     index={index}
                     blockId={0}
                     onClickValidation={() => {}}
@@ -77,6 +79,7 @@ export function ChatList(props: ChatListProps) {
                 )}
                 {isLoading && index == messages.length - 1 && (
                   <Message
+                    total={0}
                     index={0}
                     blockId={index}
                     isLoading={true}
