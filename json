@@ -1,0 +1,2032 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "prompt": {
+      "type": "string"
+    },
+    "table": {
+      "type": "string"
+    },
+    "row": {
+      "type": "integer"
+    },
+    "column": {
+      "type": "integer"
+    },
+    "candidates": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "name": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "types": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ]
+                }
+              ]
+            },
+            "kind": {
+              "type": "null"
+            },
+            "NERtype": {
+              "type": "null"
+            },
+            "ambiguity_mention": {
+              "type": "number"
+            },
+            "corrects_tokens": {
+              "type": "number"
+            },
+            "ntoken_mention": {
+              "type": "integer"
+            },
+            "ntoken_entity": {
+              "type": "integer"
+            },
+            "length_mention": {
+              "type": "integer"
+            },
+            "length_entity": {
+              "type": "integer"
+            },
+            "popularity": {
+              "type": "number"
+            },
+            "pos_score": {
+              "type": "number"
+            },
+            "es_score": {
+              "type": "number"
+            },
+            "ed_score": {
+              "type": "number"
+            },
+            "jaccard_score": {
+              "type": "number"
+            },
+            "jaccardNgram_score": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "description",
+            "types",
+            "kind",
+            "NERtype",
+            "ambiguity_mention",
+            "corrects_tokens",
+            "ntoken_mention",
+            "ntoken_entity",
+            "length_mention",
+            "length_entity",
+            "popularity",
+            "pos_score",
+            "es_score",
+            "ed_score",
+            "jaccard_score",
+            "jaccardNgram_score"
+          ]
+        }
+      ]
+    },
+    "cell": {
+      "type": "string"
+    },
+    "response": {
+      "type": "object",
+      "properties": {
+        "qid": {
+          "type": "string"
+        },
+        "cell": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "object",
+          "properties": {
+            "qid": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "qid",
+            "label",
+            "description"
+          ]
+        },
+        "response_string": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "qid",
+        "cell",
+        "label",
+        "description",
+        "type",
+        "response_string"
+      ]
+    }
+  },
+  "required": [
+    "prompt",
+    "table",
+    "row",
+    "column",
+    "candidates",
+    "cell",
+    "response"
+  ]
+}

@@ -10,6 +10,7 @@ import Markdown from "react-markdown";
 import { SkipMessage } from "~/app/components/main/chats/validation-chat/skip-message";
 
 export type MessageProps = {
+  total: number;
   index: number;
   blockId: number;
   message: MessageType;
@@ -23,11 +24,21 @@ export type MessageProps = {
 };
 
 export const Message = (messageProps: MessageProps) => {
-  const { blockId, index, onClickValidation, onClickSkip, message, isLoading } =
-    messageProps;
+  const {
+    total,
+    blockId,
+    index,
+    onClickValidation,
+    onClickSkip,
+    message,
+    isLoading,
+  } = messageProps;
   return (
     <ChatBubble
-      className="flex-col"
+      className={cn(
+        message.messageType == "CLINICAL" ? "max-w-[100%]" : "",
+        "flex-col",
+      )}
       variant={message.role == "AI" ? "received" : "sent"}
     >
       <ChatBubbleMessage isLoading={isLoading}>
@@ -38,7 +49,7 @@ export const Message = (messageProps: MessageProps) => {
               message.messageType == "CLINICAL" ? "bg-gray-60" : "",
             )}
           >
-            {message.title} {index}
+            {message.title} {index} on {total}
           </h1>
         )}
         <Markdown className="text-xs">{message.text}</Markdown>

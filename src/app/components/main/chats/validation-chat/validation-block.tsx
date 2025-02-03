@@ -4,6 +4,7 @@ import { type Block } from "~/app/components/main/chats/types";
 import { Separator } from "~/app/components/ui/separator";
 
 export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
+  total: number;
   indexBlock: number;
   block: Block;
   showSeparator: boolean;
@@ -18,6 +19,7 @@ export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
 
 export const ValidationBlock = (props: ValidationBlockProps) => {
   const {
+    total,
     block,
     indexBlock,
     showSeparator,
@@ -47,6 +49,7 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
             className="flex flex-col gap-2 p-4 last:mb-4"
           >
             <Message
+              total={total}
               index={indexBlock}
               blockId={block.id}
               message={message}
@@ -55,6 +58,7 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
             />
             {isLoading && index == block.blockMessages.length - 1 && (
               <Message
+                total={total}
                 index={0}
                 blockId={block.id}
                 isLoading={true}

@@ -120,6 +120,7 @@ export const ValidationChat = (props: ValidationChatType) => {
       <ChatMessageList ref={messagesEndRef}>
         {blocks.data?.validated.map((block, index) => (
           <ValidationBlock
+            total={blocks.data.total ?? 0}
             indexBlock={index + 1}
             showSeparator={index != blocks.data?.validated.length - 1}
             key={index}
@@ -130,6 +131,7 @@ export const ValidationChat = (props: ValidationChatType) => {
         ))}
         {blocks.data?.current && (
           <ValidationBlock
+            total={blocks.data.total ?? 0}
             indexBlock={blocks.data?.validated.length + 1}
             isLoading={updateBlock.isPending}
             showSeparator={false}

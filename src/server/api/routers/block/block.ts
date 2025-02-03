@@ -6,6 +6,7 @@ import {
   getInProgressDiagnosis,
   getNewDiagnosis,
 } from "~/server/api/routers/block/queries";
+import diagnosisJson from "~/server/db/diagnosis.json";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
@@ -26,11 +27,13 @@ export const blockRouter = createTRPCRouter({
         return {
           validated: validated,
           current: newBlock,
+          total: diagnosisJson.length,
         };
       }
       return {
         validated: validated,
         current: inProgress,
+        total: diagnosisJson.length,
       };
     }),
   updateBlock: publicProcedure
@@ -81,7 +84,7 @@ export const blockRouter = createTRPCRouter({
               hasValidation: false,
               messageType: "DEFAULT",
               role: "AI",
-              text: "Validate the answer with a score from 0 to 1 ",
+              text: "Evaluate the response with a score between 0 and 1 (e.g., 0.5). Judge its quality based on accuracy, completeness, and clarity",
               timestamp: new Date(),
               orderNumber: 4,
               diagnosisBlock: input.blockId,
