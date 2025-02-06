@@ -22,6 +22,9 @@ export default {
         layout: "55px 1fr",
       },
       colors: {
+        "background-introduction": "#D3D7DF",
+        "background-diagnosis": "#C5D3E8",
+        "background-llmind-diagnosis": "#D0E8C5",
         gray: {
           "10": "#FAFAFA",
           "20": "#DCE4E6",

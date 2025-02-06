@@ -12,6 +12,13 @@ export const getFinishedDiagnosis = async (
       eq(diagnosis.currentOperation, "FINISHED"),
     ),
     with: {
+      clinicalMessage: {
+        with: {
+          clinicalMessage: true,
+          diagnosisMessage: true,
+          diagnosisLLMindMessage: true,
+        },
+      },
       blockMessages: {
         orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
       },
@@ -26,12 +33,16 @@ export const getInProgressDiagnosis = async (
   return await db.query.diagnosis.findFirst({
     where: and(
       eq(diagnosis.userId, userToken),
-      or(
-        eq(diagnosis.currentOperation, "NOTE"),
-        eq(diagnosis.currentOperation, "SCORE"),
-      ),
+      or(eq(diagnosis.currentOperation, "NOTE")),
     ),
     with: {
+      clinicalMessage: {
+        with: {
+          clinicalMessage: true,
+          diagnosisMessage: true,
+          diagnosisLLMindMessage: true,
+        },
+      },
       blockMessages: {
         orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
       },
@@ -46,9 +57,16 @@ export const getNewDiagnosis = async (
   const newDiagnosis = await db.query.diagnosis.findMany({
     where: and(
       eq(diagnosis.userId, userToken),
-      eq(diagnosis.currentOperation, "VALIDATION"),
+      eq(diagnosis.currentOperation, "SCORE"),
     ),
     with: {
+      clinicalMessage: {
+        with: {
+          clinicalMessage: true,
+          diagnosisMessage: true,
+          diagnosisLLMindMessage: true,
+        },
+      },
       blockMessages: {
         orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
       },

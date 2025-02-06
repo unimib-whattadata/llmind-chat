@@ -51,7 +51,6 @@ export function ChatList(props: ChatListProps) {
                   total={0}
                   index={index}
                   blockId={0}
-                  onClickValidation={() => {}}
                   onClickSkip={() => {}}
                   message={message}
                 />
@@ -60,7 +59,6 @@ export function ChatList(props: ChatListProps) {
                     total={0}
                     index={index}
                     blockId={0}
-                    onClickValidation={() => {}}
                     onClickSkip={() => {}}
                     message={{
                       messageType: "DEFAULT",
@@ -69,7 +67,6 @@ export function ChatList(props: ChatListProps) {
                       text: tmpMessageUser,
                       timestamp: new Date(),
                       role: "USER",
-                      hasValidation: false,
                       chatId: 0,
                       hasSkip: false,
                       diagnosisBlock: 0,
@@ -90,13 +87,11 @@ export function ChatList(props: ChatListProps) {
                       text: "",
                       timestamp: new Date(),
                       role: "AI",
-                      hasValidation: false,
                       chatId: 0,
                       hasSkip: false,
                       diagnosisBlock: 0,
                       orderNumber: 0,
                     }}
-                    onClickValidation={() => {}}
                     onClickSkip={() => {}}
                   />
                 )}

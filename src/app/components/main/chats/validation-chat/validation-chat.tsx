@@ -88,20 +88,6 @@ export const ValidationChat = (props: ValidationChatType) => {
     );
   }
 
-  const onClickValidation = (
-    blockId: number,
-    messageId: number,
-    textValidation: "Yes" | "No",
-  ) => {
-    updateBlock.mutate({
-      userToken: auth.userId,
-      blockId: blockId,
-      messageId: messageId,
-      currentblockOperation: "VALIDATION",
-      response: textValidation,
-    });
-  };
-
   const onClickSkip = (blockId: number, messageId: number) => {
     updateBlock.mutate({
       userToken: auth.userId,
@@ -125,7 +111,6 @@ export const ValidationChat = (props: ValidationChatType) => {
             showSeparator={index != blocks.data?.validated.length - 1}
             key={index}
             block={block}
-            onClickValidation={onClickValidation}
             onClickSkip={onClickSkip}
           />
         ))}
@@ -136,7 +121,6 @@ export const ValidationChat = (props: ValidationChatType) => {
             isLoading={updateBlock.isPending}
             showSeparator={false}
             block={blocks.data.current}
-            onClickValidation={onClickValidation}
             onClickSkip={onClickSkip}
           />
         )}
@@ -156,10 +140,7 @@ export const ValidationChat = (props: ValidationChatType) => {
               x-chunk="dashboard-03-chunk-1"
             >
               <FormField
-                disabled={
-                  blocks.data?.current?.currentOperation == "VALIDATION" ||
-                  !blocks.data?.current
-                }
+                disabled={!blocks.data?.current}
                 control={form.control}
                 name="message"
                 render={({ field }) => {
@@ -178,10 +159,7 @@ export const ValidationChat = (props: ValidationChatType) => {
                 }}
               />
               <Button
-                disabled={
-                  blocks.data?.current?.currentOperation == "VALIDATION" ||
-                  !blocks.data?.current
-                }
+                disabled={!blocks.data?.current}
                 type="submit"
                 size="sm"
                 className="ml-auto mr-3 gap-1.5 self-center bg-transparent text-gray-40 hover:bg-forest-green-100 focus:bg-forest-green-100"

@@ -2,8 +2,8 @@ export type MessageType = {
   title: string | null;
   messageType:
     | "DIAGNOSIS"
-    | "VALIDATION"
     | "SCORE"
+    | "MODEL-DIAGNOSIS"
     | "NOTE"
     | "CLINICAL"
     | "DEFAULT";
@@ -11,7 +11,6 @@ export type MessageType = {
   text: string;
   timestamp: Date;
   role: "USER" | "AI";
-  hasValidation: boolean;
   hasSkip: boolean;
   orderNumber: number | null;
   chatId: number | null;
@@ -19,11 +18,17 @@ export type MessageType = {
 };
 
 export type Block = {
-  currentOperation: "VALIDATION" | "SCORE" | "NOTE" | "FINISHED";
-  validation: "CORRECT" | "INCORRECT" | null;
+  currentOperation: "SCORE" | "NOTE" | "FINISHED";
   id: number;
+  title: string;
+  section: string;
   diagnosis: string;
   clinicalCase: string;
+  clinicalMessage: {
+    clinicalMessage: MessageType;
+    diagnosisMessage: MessageType;
+    diagnosisLLMindMessage: MessageType;
+  };
   score: string | null;
   note: string | null;
   blockMessages: MessageType[];

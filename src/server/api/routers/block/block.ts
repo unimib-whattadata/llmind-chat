@@ -42,57 +42,12 @@ export const blockRouter = createTRPCRouter({
         userToken: z.number(),
         blockId: z.number(),
         messageId: z.number(),
-        currentblockOperation: z.enum([
-          "VALIDATION",
-          "SCORE",
-          "NOTE",
-          "FINISHED",
-        ]),
+        currentblockOperation: z.enum(["SCORE", "NOTE", "FINISHED"]),
         response: z.string(),
       }),
     )
     .mutation(async ({ ctx, input }) => {
       switch (input.currentblockOperation) {
-        case "VALIDATION": {
-          const validationResponse =
-            input.response == "Yes" ? "CORRECT" : "INCORRECT";
-          await ctx.db
-            .update(diagnosis)
-            .set({ currentOperation: "SCORE", validation: validationResponse })
-            .where(
-              and(
-                eq(diagnosis.userId, input.userToken),
-                eq(diagnosis.id, input.blockId),
-              ),
-            );
-          await ctx.db
-            .update(message)
-            .set({ hasValidation: false })
-            .where(eq(message.id, input.messageId));
-          await ctx.db.insert(message).values([
-            {
-              hasValidation: false,
-              messageType: "DEFAULT",
-              role: "USER",
-              text: `The answer has been validated as ${validationResponse}`,
-              timestamp: new Date(),
-              orderNumber: 3,
-              diagnosisBlock: input.blockId,
-              hasSkip: false,
-            },
-            {
-              hasValidation: false,
-              messageType: "DEFAULT",
-              role: "AI",
-              text: "Evaluate the response with a score between 0 and 1 (e.g., 0.5). Judge its quality based on accuracy, completeness, and clarity",
-              timestamp: new Date(),
-              orderNumber: 4,
-              diagnosisBlock: input.blockId,
-              hasSkip: false,
-            },
-          ]);
-          break;
-        }
         case "NOTE": {
           await ctx.db
             .update(diagnosis)
@@ -105,7 +60,6 @@ export const blockRouter = createTRPCRouter({
             );
           if (input.response != "Skip") {
             await ctx.db.insert(message).values({
-              hasValidation: false,
               messageType: "DEFAULT",
               role: "USER",
               text: input.response,
@@ -117,7 +71,7 @@ export const blockRouter = createTRPCRouter({
           }
           await ctx.db
             .update(message)
-            .set({ hasSkip: false, hasValidation: false })
+            .set({ hasSkip: false })
             .where(and(eq(message.diagnosisBlock, input.blockId)));
           break;
         }
@@ -133,7 +87,6 @@ export const blockRouter = createTRPCRouter({
             );
           await ctx.db.insert(message).values([
             {
-              hasValidation: false,
               messageType: "DEFAULT",
               role: "USER",
               text: input.response,
@@ -143,7 +96,6 @@ export const blockRouter = createTRPCRouter({
               hasSkip: false,
             },
             {
-              hasValidation: false,
               messageType: "DEFAULT",
               role: "AI",
               text: "Would you like to add any additional notes?",

@@ -4,7 +4,6 @@ import {
   ChatBubbleMessage,
   ChatBubble,
 } from "~/app/components/main/chats/chat-bubble";
-import { MessageValidation } from "~/app/components/main/chats/validation-chat/message-validation";
 import { type MessageType } from "~/app/components/main/chats/types";
 import Markdown from "react-markdown";
 import { SkipMessage } from "~/app/components/main/chats/validation-chat/skip-message";
@@ -14,25 +13,13 @@ export type MessageProps = {
   index: number;
   blockId: number;
   message: MessageType;
-  onClickValidation: (
-    blockId: number,
-    messageId: number,
-    textValidation: "Yes" | "No",
-  ) => void;
   onClickSkip: (blockId: number, messageId: number) => void;
   isLoading?: boolean;
 };
 
 export const Message = (messageProps: MessageProps) => {
-  const {
-    total,
-    blockId,
-    index,
-    onClickValidation,
-    onClickSkip,
-    message,
-    isLoading,
-  } = messageProps;
+  const { total, blockId, index, onClickSkip, message, isLoading } =
+    messageProps;
   return (
     <ChatBubble
       className={cn(
@@ -54,14 +41,6 @@ export const Message = (messageProps: MessageProps) => {
         )}
         <Markdown className="text-xs">{message.text}</Markdown>
       </ChatBubbleMessage>
-      {message.hasValidation && (
-        <MessageValidation
-          messageId={message.id}
-          blockId={blockId}
-          onClickValidation={onClickValidation}
-          className="self-start"
-        />
-      )}
       {message.hasSkip && (
         <SkipMessage
           messageId={message.id}

@@ -1,7 +1,9 @@
+import { cn } from "~/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import Message from "~/app/components/main/chats/message";
 import { type Block } from "~/app/components/main/chats/types";
 import { Separator } from "~/app/components/ui/separator";
+import MessageDiagnosis from "~/app/components/main/chats/validation-chat/message-diagnosis";
 
 export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
   total: number;
@@ -9,27 +11,18 @@ export type ValidationBlockProps = React.HTMLAttributes<HTMLDivElement> & {
   block: Block;
   showSeparator: boolean;
   isLoading?: boolean;
-  onClickValidation: (
-    blockId: number,
-    messageId: number,
-    textValidation: "Yes" | "No",
-  ) => void;
   onClickSkip: (blockId: number, messageId: number) => void;
 };
 
 export const ValidationBlock = (props: ValidationBlockProps) => {
-  const {
-    total,
-    block,
-    indexBlock,
-    showSeparator,
-    isLoading,
-    onClickValidation,
-    onClickSkip,
-  } = props;
+  const { total, block, indexBlock, showSeparator, isLoading, onClickSkip } =
+    props;
   return (
     <AnimatePresence>
       {block.blockMessages.map((message, index) => {
+        const skip =
+          message.messageType == "DIAGNOSIS" ||
+          message.messageType == "MODEL-DIAGNOSIS"; // skip element
         return (
           <motion.div
             key={index}
@@ -46,16 +39,33 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
               },
             }}
             style={{ originX: 0.5, originY: 0.5 }}
-            className="flex flex-col gap-2 p-4 last:mb-4"
+            className={cn("flex flex-col last:mb-4", !skip ? "gap-2 p-4" : "")}
           >
-            <Message
-              total={total}
-              index={indexBlock}
-              blockId={block.id}
-              message={message}
-              onClickValidation={onClickValidation}
-              onClickSkip={onClickSkip}
-            />
+            {message.messageType != "DIAGNOSIS" &&
+            message.messageType != "MODEL-DIAGNOSIS" &&
+            message.messageType != "CLINICAL" ? (
+              <Message
+                total={total}
+                index={indexBlock}
+                blockId={block.id}
+                message={message}
+                onClickSkip={onClickSkip}
+              />
+            ) : !skip ? (
+              <MessageDiagnosis
+                indexBlock={indexBlock}
+                total={total}
+                title={block.title}
+                section={block.section}
+                clinicalCaseMessage={block.clinicalMessage.clinicalMessage}
+                diagnosisText={block.clinicalMessage.diagnosisMessage}
+                diagnosisLLMindText={
+                  block.clinicalMessage.diagnosisLLMindMessage
+                }
+              />
+            ) : (
+              <></>
+            )}
             {isLoading && index == block.blockMessages.length - 1 && (
               <Message
                 total={total}
@@ -69,13 +79,11 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
                   text: "",
                   timestamp: new Date(),
                   role: "AI",
-                  hasValidation: false,
                   chatId: 0,
                   hasSkip: false,
                   diagnosisBlock: 0,
                   orderNumber: 0,
                 }}
-                onClickValidation={onClickValidation}
                 onClickSkip={onClickSkip}
               />
             )}

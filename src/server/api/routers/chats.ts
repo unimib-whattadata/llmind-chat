@@ -25,7 +25,6 @@ export const chatRouter = createTRPCRouter({
       if (createdChat) {
         await ctx.db.insert(message).values({
           hasSkip: false,
-          hasValidation: false,
           messageType: "DEFAULT",
           role: "AI",
           text: "Hi, I am LLMind!!! Write me a clinical case and I will response with my Diagnosis",
@@ -76,7 +75,6 @@ export const chatRouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       await ctx.db.insert(message).values({
         hasSkip: false,
-        hasValidation: false,
         messageType: "DEFAULT",
         role: "USER",
         text: input.message,
@@ -96,7 +94,6 @@ export const chatRouter = createTRPCRouter({
       const llmindResponse = (await llmind.json()) as { output_string: string };
       await ctx.db.insert(message).values({
         hasSkip: false,
-        hasValidation: false,
         messageType: "DEFAULT",
         role: "AI",
         text: llmindResponse.output_string,
