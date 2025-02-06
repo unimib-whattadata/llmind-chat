@@ -12,13 +12,6 @@ export const getFinishedDiagnosis = async (
       eq(diagnosis.currentOperation, "FINISHED"),
     ),
     with: {
-      clinicalMessage: {
-        with: {
-          clinicalMessage: true,
-          diagnosisMessage: true,
-          diagnosisLLMindMessage: true,
-        },
-      },
       blockMessages: {
         orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
       },
@@ -36,13 +29,6 @@ export const getInProgressDiagnosis = async (
       or(eq(diagnosis.currentOperation, "NOTE")),
     ),
     with: {
-      clinicalMessage: {
-        with: {
-          clinicalMessage: true,
-          diagnosisMessage: true,
-          diagnosisLLMindMessage: true,
-        },
-      },
       blockMessages: {
         orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
       },
@@ -60,13 +46,6 @@ export const getNewDiagnosis = async (
       eq(diagnosis.currentOperation, "SCORE"),
     ),
     with: {
-      clinicalMessage: {
-        with: {
-          clinicalMessage: true,
-          diagnosisMessage: true,
-          diagnosisLLMindMessage: true,
-        },
-      },
       blockMessages: {
         orderBy: (blockMessages, { asc }) => [asc(blockMessages.orderNumber)],
       },

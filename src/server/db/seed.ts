@@ -1,6 +1,6 @@
 // src/server/db/seed.ts
 import { drizzle } from "drizzle-orm/node-postgres";
-import { diagnosis, message, clinicalMessage } from "./schema";
+import { diagnosis, message } from "./schema";
 import diagnosisJSON from "./diagnosis.json";
 import pg from "pg";
 import { env } from "~/env";
@@ -11,6 +11,7 @@ export const seedDiagnosis = async (userId: number) => {
     connectionString: `postgresql://postgres:${env.POSTGRESQL_PASS}@${env.POSTGRES_HOST}:${env.POSTGRES_PORT}/${env.POSTGRES_DB}`,
   });
   const db = drizzle(client);
+  console.log("seed start");
   diagnosisJSON.map(async (value) => {
     const diagnosisId = await db
       .insert(diagnosis)
@@ -19,6 +20,7 @@ export const seedDiagnosis = async (userId: number) => {
         section: value.section,
         clinicalCase: value.clinical_case,
         diagnosis: value.diagnosis,
+        llmind_diagnosis: value.llmind_diagnosis,
         currentOperation: "SCORE",
         userId: userId,
       })
@@ -26,9 +28,9 @@ export const seedDiagnosis = async (userId: number) => {
     const currentDiagnosis = diagnosisId[0];
     if (currentDiagnosis == undefined) return;
     // Clinical Case
-    const newClinicaslCase = await db
+    await db
       .insert(message)
-      .values({
+      .values([{
         text: value.clinical_case,
         messageType: "CLINICAL",
         timestamp: new Date(),
@@ -37,53 +39,7 @@ export const seedDiagnosis = async (userId: number) => {
         orderNumber: 1,
         title: `Clinical Case`,
         hasSkip: false,
-      })
-      .returning({ insertedId: message.id });
-    const newClinicaslCaseId = newClinicaslCase[0];
-    if (newClinicaslCaseId == undefined) return;
-
-    // Diagnosis
-    const newDiagnosis = await db
-      .insert(message)
-      .values({
-        text: value.diagnosis,
-        messageType: "DIAGNOSIS",
-        timestamp: new Date(),
-        role: "AI",
-        diagnosisBlock: currentDiagnosis.insertedId,
-        orderNumber: 2,
-        title: `Diagnosis`,
-        hasSkip: false,
-      })
-      .returning({ insertedId: message.id });
-    const newDiagnosisId = newDiagnosis[0];
-    if (newDiagnosisId == undefined) return;
-
-    // LLMind Diagnosis
-    const newLLMindDiagnosis = await db
-      .insert(message)
-      .values({
-        text: value.llmind_diagnosis,
-        messageType: "MODEL-DIAGNOSIS",
-        timestamp: new Date(),
-        role: "AI",
-        diagnosisBlock: currentDiagnosis.insertedId,
-        orderNumber: 3,
-        title: `LLMind Diagnosis`,
-        hasSkip: false,
-      })
-      .returning({ insertedId: message.id });
-    const newLLMindDiagnosisId = newLLMindDiagnosis[0];
-    if (newLLMindDiagnosisId == undefined) return;
-
-    await db.insert(clinicalMessage).values({
-      diagnosisId: currentDiagnosis.insertedId,
-      clinicalMessage: newClinicaslCaseId.insertedId,
-      diagnosisMessage: newDiagnosisId.insertedId,
-      diagnosisLLMindMessage: newLLMindDiagnosisId.insertedId,
-    });
-
-    await db.insert(message).values([
+      },
       {
         messageType: "DEFAULT",
         role: "AI",
@@ -92,7 +48,7 @@ export const seedDiagnosis = async (userId: number) => {
         orderNumber: 4,
         diagnosisBlock: currentDiagnosis.insertedId,
         hasSkip: false,
-      },
-    ]);
+      }])
   });
+  console.log("seed end");
 };

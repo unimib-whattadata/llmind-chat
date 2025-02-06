@@ -66,17 +66,6 @@ export const ValidationChat = (props: ValidationChatType) => {
     });
   }
 
-  if (blocks.isLoading) {
-    return (
-      <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
-        <h1 className="overflow-hidden p-4 align-top font-bold text-forest-green-700">
-          {title}
-        </h1>
-        <Loader className="h-full w-full bg-transparent" />
-      </div>
-    );
-  }
-
   if (blocks.isError) {
     return (
       <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
@@ -98,78 +87,90 @@ export const ValidationChat = (props: ValidationChatType) => {
     });
   };
 
+  if (blocks.isFetched) {
+    return (
+      <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
+        <h1 className="overflow-hidden p-4 align-top font-bold text-forest-green-700">
+          {title}
+        </h1>
+        <ChatMessageList ref={messagesEndRef}>
+          {blocks.data?.validated.map((block, index) => (
+            <ValidationBlock
+              total={blocks.data.total ?? 0}
+              indexBlock={index + 1}
+              showSeparator={index != blocks.data?.validated.length - 1}
+              key={index}
+              block={block}
+              onClickSkip={onClickSkip}
+            />
+          ))}
+          {blocks.data?.current && (
+            <ValidationBlock
+              total={blocks.data.total ?? 0}
+              indexBlock={blocks.data?.validated.length + 1}
+              isLoading={updateBlock.isPending}
+              showSeparator={false}
+              block={blocks.data.current}
+              onClickSkip={onClickSkip}
+            />
+          )}
+          <div ref={messagesEndRef}></div>
+        </ChatMessageList>
+        {blocks.isFetched && (
+          <div>
+            {form.formState.errors.message && (
+              <p className="mx-4 text-xs text-red-400">
+                {form.formState.errors.message?.message}
+              </p>
+            )}
+            <Form {...form}>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className="mt- relative m-4 mt-0 flex flex-1 overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
+                x-chunk="dashboard-03-chunk-1"
+              >
+                <FormField
+                  disabled={!blocks.data?.current}
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => {
+                    return (
+                      <FormItem className="w-full">
+                        <FormControl>
+                          <Textarea
+                            id="message"
+                            placeholder="Type your message here..."
+                            className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
+                            {...field}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    );
+                  }}
+                />
+                <Button
+                  disabled={!blocks.data?.current}
+                  type="submit"
+                  size="sm"
+                  className="ml-auto mr-3 gap-1.5 self-center bg-transparent text-gray-40 hover:bg-forest-green-100 focus:bg-forest-green-100"
+                >
+                  <Send size={24} />
+                </Button>
+              </form>
+            </Form>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
     <div className="relative flex h-[calc(100vh-55px)] w-full flex-col overflow-hidden bg-gray-10">
       <h1 className="overflow-hidden p-4 align-top font-bold text-forest-green-700">
         {title}
       </h1>
-      <ChatMessageList ref={messagesEndRef}>
-        {blocks.data?.validated.map((block, index) => (
-          <ValidationBlock
-            total={blocks.data.total ?? 0}
-            indexBlock={index + 1}
-            showSeparator={index != blocks.data?.validated.length - 1}
-            key={index}
-            block={block}
-            onClickSkip={onClickSkip}
-          />
-        ))}
-        {blocks.data?.current && (
-          <ValidationBlock
-            total={blocks.data.total ?? 0}
-            indexBlock={blocks.data?.validated.length + 1}
-            isLoading={updateBlock.isPending}
-            showSeparator={false}
-            block={blocks.data.current}
-            onClickSkip={onClickSkip}
-          />
-        )}
-        <div ref={messagesEndRef}></div>
-      </ChatMessageList>
-      {blocks.isFetched && (
-        <div>
-          {form.formState.errors.message && (
-            <p className="mx-4 text-xs text-red-400">
-              {form.formState.errors.message?.message}
-            </p>
-          )}
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(onSubmit)}
-              className="mt- relative m-4 mt-0 flex flex-1 overflow-hidden rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring"
-              x-chunk="dashboard-03-chunk-1"
-            >
-              <FormField
-                disabled={!blocks.data?.current}
-                control={form.control}
-                name="message"
-                render={({ field }) => {
-                  return (
-                    <FormItem className="w-full">
-                      <FormControl>
-                        <Textarea
-                          id="message"
-                          placeholder="Type your message here..."
-                          className="min-h-12 resize-none border-0 p-3 shadow-none focus-visible:ring-0"
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  );
-                }}
-              />
-              <Button
-                disabled={!blocks.data?.current}
-                type="submit"
-                size="sm"
-                className="ml-auto mr-3 gap-1.5 self-center bg-transparent text-gray-40 hover:bg-forest-green-100 focus:bg-forest-green-100"
-              >
-                <Send size={24} />
-              </Button>
-            </form>
-          </Form>
-        </div>
-      )}
+      <Loader className="h-full w-full bg-transparent" />
     </div>
   );
-};
+
+}

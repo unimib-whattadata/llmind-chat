@@ -23,9 +23,8 @@ type MainType = React.HTMLAttributes<HTMLDivElement> & {};
 export const Main = (props: MainType) => {
   const { className } = props;
   const { mainContent, auth, setAuth } = useSidebar();
-  console.log(auth);
   const authentication = api.users.authenticate.useMutation({
-    onSuccess: (data) => {
+    onSuccess: async (data) => {
       setAuth({
         isAuth: true,
         userId: data,

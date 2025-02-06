@@ -23,8 +23,6 @@ export const createTable = pgTableCreator((name) => `micare-chat_${name}`);
 export const messageRoleEnum = pgEnum("messageRole", ["AI", "USER"]);
 export const messageTypeEnum = pgEnum("messageType", [
   "CLINICAL",
-  "DIAGNOSIS",
-  "MODEL-DIAGNOSIS",
   "SCORE",
   "NOTE",
   "DEFAULT",
@@ -41,32 +39,13 @@ export const diagnosis = createTable("diagnosis", {
   title: varchar("title").notNull(),
   section: varchar("section").notNull(),
   clinicalCase: varchar("clinicalCase").notNull(),
+  llmind_diagnosis: varchar("llmind_diagnosis").notNull(),
   currentOperation: currentOperationEnum("currentOperation").notNull(),
   score: varchar("score"),
   note: varchar("note"),
   userId: integer("userId")
     .references(() => user.id)
     .notNull(), // Foreign key
-});
-
-export const clinicalMessage = createTable("clinicalMessage", {
-  id: serial("id").primaryKey().notNull(),
-  diagnosisId: integer("diagnosisId")
-    .unique()
-    .references(() => diagnosis.id)
-    .notNull(), // One-to-One Foreign key
-  clinicalMessage: integer("clinicalMessage")
-    .unique()
-    .references(() => message.id)
-    .notNull(), // First message
-  diagnosisMessage: integer("diagnosisMessage")
-    .unique()
-    .references(() => message.id)
-    .notNull(), // Second message
-  diagnosisLLMindMessage: integer("diagnosisLLMindMessage")
-    .unique()
-    .references(() => message.id)
-    .notNull(), // Third message
 });
 
 export const user = createTable("user", {
@@ -102,34 +81,8 @@ export const chatsRelations = relations(chat, ({ many, one }) => ({
   }),
 }));
 
-export const clinicalMessageRelations = relations(
-  clinicalMessage,
-  ({ one }) => ({
-    diagnosis: one(diagnosis, {
-      fields: [clinicalMessage.diagnosisId],
-      references: [diagnosis.id],
-    }),
-    clinicalMessage: one(message, {
-      fields: [clinicalMessage.clinicalMessage],
-      references: [message.id],
-    }),
-    diagnosisMessage: one(message, {
-      fields: [clinicalMessage.diagnosisMessage],
-      references: [message.id],
-    }),
-    diagnosisLLMindMessage: one(message, {
-      fields: [clinicalMessage.diagnosisLLMindMessage],
-      references: [message.id],
-    }),
-  }),
-);
-
 export const diagnosisRelations = relations(diagnosis, ({ many, one }) => ({
   blockMessages: many(message),
-  clinicalMessage: one(clinicalMessage, {
-    fields: [diagnosis.id],
-    references: [clinicalMessage.diagnosisId],
-  }),
   userId: one(user, {
     fields: [diagnosis.userId],
     references: [user.id],

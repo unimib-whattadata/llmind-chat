@@ -11,9 +11,9 @@ export type MessageDiagnosisProps = {
   indexBlock: number;
   title: string;
   section: string;
-  clinicalCaseMessage: MessageType;
-  diagnosisText: MessageType;
-  diagnosisLLMindText: MessageType;
+  clinicalCaseMessage: string;
+  diagnosisText: string;
+  diagnosisLLMindText: string;
 };
 
 export const MessageDiagnosis = (
@@ -46,21 +46,21 @@ export const MessageDiagnosis = (
           <h3 className="mb-2 text-sm font-bold text-forest-green-800">
             Introduction
           </h3>
-          <Markdown>{clinicalCaseMessage.text}</Markdown>
+          <Markdown>{clinicalCaseMessage}</Markdown>
         </div>
         {/* Diagnosis */}
         <div className="bg-background-diagnosis flex flex-col whitespace-pre-wrap break-words rounded p-2 text-xs">
           <h3 className="mb-2 text-sm font-bold text-forest-green-800">
             Diagnosis
           </h3>
-          <Markdown>{diagnosisText.text}</Markdown>
+          <Markdown>{diagnosisText}</Markdown>
         </div>
         {/* LLMind Diagnosis */}
         <div className="bg-background-llmind-diagnosis flex flex-col whitespace-pre-wrap break-words rounded p-2 text-xs">
           <h3 className="mb-2 text-sm font-bold text-forest-green-800">
             LLMind Diagnosis
           </h3>
-          <Markdown>{diagnosisLLMindText.text}</Markdown>
+          <Markdown>{diagnosisLLMindText}</Markdown>
         </div>
       </ChatBubbleMessage>
     </ChatBubble>

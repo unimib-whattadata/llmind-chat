@@ -24,11 +24,7 @@ export type Block = {
   section: string;
   diagnosis: string;
   clinicalCase: string;
-  clinicalMessage: {
-    clinicalMessage: MessageType;
-    diagnosisMessage: MessageType;
-    diagnosisLLMindMessage: MessageType;
-  };
+  llmind_diagnosis: string;
   score: string | null;
   note: string | null;
   blockMessages: MessageType[];

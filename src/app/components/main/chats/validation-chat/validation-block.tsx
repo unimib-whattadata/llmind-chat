@@ -20,9 +20,6 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
   return (
     <AnimatePresence>
       {block.blockMessages.map((message, index) => {
-        const skip =
-          message.messageType == "DIAGNOSIS" ||
-          message.messageType == "MODEL-DIAGNOSIS"; // skip element
         return (
           <motion.div
             key={index}
@@ -39,11 +36,9 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
               },
             }}
             style={{ originX: 0.5, originY: 0.5 }}
-            className={cn("flex flex-col last:mb-4", !skip ? "gap-2 p-4" : "")}
+            className="flex flex-col last:mb-4 gap-2 p-4"
           >
-            {message.messageType != "DIAGNOSIS" &&
-            message.messageType != "MODEL-DIAGNOSIS" &&
-            message.messageType != "CLINICAL" ? (
+            {message.messageType != "CLINICAL" ? (
               <Message
                 total={total}
                 index={indexBlock}
@@ -51,20 +46,18 @@ export const ValidationBlock = (props: ValidationBlockProps) => {
                 message={message}
                 onClickSkip={onClickSkip}
               />
-            ) : !skip ? (
+            ) : (
               <MessageDiagnosis
                 indexBlock={indexBlock}
                 total={total}
                 title={block.title}
                 section={block.section}
-                clinicalCaseMessage={block.clinicalMessage.clinicalMessage}
-                diagnosisText={block.clinicalMessage.diagnosisMessage}
+                clinicalCaseMessage={block.clinicalCase}
+                diagnosisText={block.diagnosis}
                 diagnosisLLMindText={
-                  block.clinicalMessage.diagnosisLLMindMessage
+                  block.llmind_diagnosis
                 }
               />
-            ) : (
-              <></>
             )}
             {isLoading && index == block.blockMessages.length - 1 && (
               <Message
