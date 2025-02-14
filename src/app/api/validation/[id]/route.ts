@@ -20,12 +20,11 @@ export async function GET(req: NextRequest) {
       { status: 400 },
     );
   }
-  console.log("ID", id)
   const emailID = await db.query.user.findFirst({
     where: eq(user.email, id),
   });
   if (emailID == undefined) throw Error();
-  const finishedDiagnosis = await getFinishedDiagnosis(db, 1);
+  const finishedDiagnosis = await getFinishedDiagnosis(db, emailID.id);
   const allDiagnosisScores: JSONData[] = [];
   finishedDiagnosis.map((current) => {
     const section = current.section;
