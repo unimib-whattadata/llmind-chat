@@ -10,22 +10,27 @@ type JSONData = {
   score: string;
 };
 
-export async function GET(
-  req: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  const { id } = await params;
+export async function GET(req: NextRequest) {
+  const url = new URL(req.url);
+  const id = url.pathname.split("/").pop(); // Extracts the `[id]` parameter
+
+  if (!id) {
+    return NextResponse.json(
+      { error: "Missing ID parameter" },
+      { status: 400 },
+    );
+  }
   const emailID = await db.query.user.findFirst({
     where: eq(user.email, id),
   });
   if (emailID == undefined) throw Error();
   const finishedDiagnosis = await getFinishedDiagnosis(db, 1);
   const allDiagnosisScores: JSONData[] = [];
-  finishedDiagnosis.map((current, index) => {
+  finishedDiagnosis.map((current) => {
     const section = current.section;
     const introduction = current.clinicalCase;
     var score = "";
-    current.blockMessages.map((message, index) => {
+    current.blockMessages.map((message) => {
       if (message.orderNumber == 5) {
         score = message.text;
       }
