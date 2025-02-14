@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
       { status: 400 },
     );
   }
+  console.log("ID", id)
   const emailID = await db.query.user.findFirst({
     where: eq(user.email, id),
   });
