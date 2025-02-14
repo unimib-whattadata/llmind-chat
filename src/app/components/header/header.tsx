@@ -16,7 +16,7 @@ export const Header = (props: HeaderProps) => {
     >
       <MicareLogo />
       <h1 className="text-base font-bold text-white">
-        {mainContent.validation ? "Chat Validator" : "LLMind"}
+        {mainContent.validation ? "Validator" : ""}
       </h1>
     </header>
   );
