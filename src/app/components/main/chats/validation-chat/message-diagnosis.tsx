@@ -42,22 +42,18 @@ export const MessageDiagnosis = (
         </div>
 
         {/* Introduction */}
-        <div className="bg-background-introduction flex flex-col whitespace-pre-wrap break-words rounded p-2 text-xs">
-          <h3 className="mb-2 text-sm font-bold text-forest-green-800">
-            Introduction
-          </h3>
+        <div className="flex flex-col whitespace-pre-wrap break-words rounded bg-background-introduction p-2 text-xs">
+          <h3 className="mb-2 text-sm font-bold text-black">Introduction</h3>
           <Markdown>{clinicalCaseMessage}</Markdown>
         </div>
         {/* Diagnosis */}
-        <div className="bg-background-diagnosis flex flex-col whitespace-pre-wrap break-words rounded p-2 text-xs">
-          <h3 className="mb-2 text-sm font-bold text-forest-green-800">
-            Diagnosis
-          </h3>
+        <div className="flex flex-col whitespace-pre-wrap break-words rounded bg-background-diagnosis p-2 text-xs">
+          <h3 className="mb-2 text-sm font-bold text-black">Diagnosis</h3>
           <Markdown>{diagnosisText}</Markdown>
         </div>
         {/* LLMind Diagnosis */}
-        <div className="bg-background-llmind-diagnosis flex flex-col whitespace-pre-wrap break-words rounded p-2 text-xs">
-          <h3 className="mb-2 text-sm font-bold text-forest-green-800">
+        <div className="flex flex-col whitespace-pre-wrap break-words rounded bg-background-llmind-diagnosis p-2 text-xs">
+          <h3 className="mb-2 text-sm font-bold text-black">
             LLMind Diagnosis
           </h3>
           <Markdown>{diagnosisLLMindText}</Markdown>
