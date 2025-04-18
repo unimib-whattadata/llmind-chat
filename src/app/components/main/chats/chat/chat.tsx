@@ -1,6 +1,6 @@
 "use client";
 import { ChatList } from "~/app/components/main/chats/chat-list";
-import { Send } from "lucide-react";
+import { Send, Speech, Mic } from "lucide-react";
 import { Button } from "~/app/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -17,12 +17,24 @@ import {
 import { useSidebar } from "~/app/components/ui/sidebar";
 import { api } from "~/trpc/react";
 import { useRef, useEffect, useState } from "react";
+import SpeechRecognition, {
+  useSpeechRecognition,
+} from "react-speech-recognition";
 
 type ChatProps = React.HTMLAttributes<HTMLDivElement> & {
   chatId: number;
 };
 
 export const Chat = (props: ChatProps) => {
+  const {
+    transcript,
+    interimTranscript,
+    finalTranscript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition,
+  } = useSpeechRecognition();
+
   const { chatId, className } = props;
   const utils = api.useUtils();
   const { auth } = useSidebar();
@@ -41,6 +53,24 @@ export const Chat = (props: ChatProps) => {
       messagesEndRef.current.scrollTop = messagesEndRef.current.scrollHeight;
     }
   }, [chat]);
+
+  useEffect(() => {
+    if (transcript) {
+      form.setValue("message", transcript);
+    }
+  }, [transcript]);
+
+  const toggleListening = () => {
+    if (!listening) {
+      SpeechRecognition.startListening({
+        continuous: true,
+        language: "en-US",
+      });
+    } else {
+      SpeechRecognition.stopListening();
+      resetTranscript();
+    }
+  };
 
   const formSchema = z.object({
     message: z.string().min(1, {
@@ -62,6 +92,10 @@ export const Chat = (props: ChatProps) => {
       chatId: chatId,
       message: data.message,
     });
+    // Reset transcript after submission
+    if (listening) {
+      resetTranscript();
+    }
   }
 
   if (chat.data) {
@@ -116,6 +150,20 @@ export const Chat = (props: ChatProps) => {
               >
                 <Send size={24} />
               </Button>
+              {browserSupportsSpeechRecognition && (
+                <Button
+                  type="button"
+                  size="sm"
+                  onClick={toggleListening}
+                  className="ml-auto mr-3 gap-1.5 self-center bg-transparent text-gray-40 hover:bg-forest-green-100 focus:bg-forest-green-100"
+                >
+                  {listening ? (
+                    <Speech size={24} className="text-green-500" />
+                  ) : (
+                    <Mic className="bg-transparent" size={24} />
+                  )}
+                </Button>
+              )}
             </form>
           </Form>
         </div>
