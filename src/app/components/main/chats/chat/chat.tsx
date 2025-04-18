@@ -28,8 +28,6 @@ type ChatProps = React.HTMLAttributes<HTMLDivElement> & {
 export const Chat = (props: ChatProps) => {
   const {
     transcript,
-    interimTranscript,
-    finalTranscript,
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
