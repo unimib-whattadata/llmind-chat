@@ -25,7 +25,6 @@ coverage
 
 # node-waf configuration
 .lock-wscript
-pnpm-lock.yaml
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
